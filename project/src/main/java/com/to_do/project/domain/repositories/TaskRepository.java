@@ -1,6 +1,6 @@
 package com.to_do.project.domain.repositories;
 
-import com.to_do.project.domain.entities.Task;
+import com.to_do.project.domain.entities.task.Task;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

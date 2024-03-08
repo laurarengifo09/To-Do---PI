@@ -1,5 +1,6 @@
-package com.to_do.project.domain.entities;
+package com.to_do.project.domain.entities.task;
 
+import com.to_do.project.domain.entities.auth.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
