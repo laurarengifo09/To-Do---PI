@@ -8,6 +8,10 @@ import com.to_do.project.domain.entities.auth.Role;
 import com.to_do.project.domain.entities.auth.User;
 import com.to_do.project.domain.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +20,13 @@ public class AuthServiceImpl implements AuthService{
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authManager;
 
     public AuthResponseDTO register(RegisterRequestDTO registerRequestDTO) {
         User user = User.builder()
                 .email(registerRequestDTO.email())
-                .password(registerRequestDTO.password())
+                .password(passwordEncoder.encode(registerRequestDTO.password()))
                 .name(registerRequestDTO.name())
                 .lastname(registerRequestDTO.lastname())
                 .role(Role.USER)
@@ -32,6 +38,10 @@ public class AuthServiceImpl implements AuthService{
     }
 
     public AuthResponseDTO login(LoginRequestDTO loginRequestDTO) {
-        return null;
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.email(), loginRequestDTO.password()));
+        UserDetails user = userRepository.findByEmail(loginRequestDTO.email()).orElseThrow();
+        String accessToken = jwtService.getAccessToken(user);
+
+        return new AuthResponseDTO(accessToken, user);
     }
 }
