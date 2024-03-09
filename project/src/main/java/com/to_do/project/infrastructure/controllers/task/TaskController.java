@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TaskController {
 
-    @PostMapping(value = "/home")
+    @GetMapping(value = "/home")
     public String welcome() {
         return "Welcome to the Task Manager!";
     }
