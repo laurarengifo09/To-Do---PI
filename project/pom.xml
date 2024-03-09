@@ -88,6 +88,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <mainClass>com.to_do.project.ProjectApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
