@@ -39,12 +39,13 @@ public class TaskController {
     @GetMapping("/getByUserId/{userId}")
     public ResponseEntity<List<TaskResponseDTO>> getTasksByUserId(@PathVariable UUID userId, @RequestParam String content, @RequestParam String startDate,
                                                                   @RequestParam String endDate, @RequestParam String priority, @RequestParam Boolean done,
+                                                                  @RequestParam Boolean deleted,
                                                                   @RequestParam String sorting, @RequestParam int page, @RequestParam int size) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
 
 
-        FiltersDTO filters = new FiltersDTO(content, formatter.parse(startDate), formatter.parse(endDate), priority, done);
+        FiltersDTO filters = new FiltersDTO(content, formatter.parse(startDate), formatter.parse(endDate), priority, done, deleted);
         PaginationDTO pagination = new PaginationDTO(page, size);
 
         return ResponseEntity.ok(_taskService.getTasksByUserId(userId, filters, sorting, pagination));
