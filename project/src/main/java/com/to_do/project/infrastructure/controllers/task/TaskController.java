@@ -4,6 +4,7 @@ import com.to_do.project.application.dto.common.PaginationDTO;
 import com.to_do.project.application.dto.task.*;
 import com.to_do.project.application.services.auth.AuthService;
 import com.to_do.project.application.services.task.TaskService;
+import jakarta.annotation.Nullable;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +38,10 @@ public class TaskController {
     }
 
     @GetMapping("/getByUserId/{userId}")
-    public ResponseEntity<List<TaskResponseDTO>> getTasksByUserId(@PathVariable UUID userId, @RequestParam String content, @RequestParam String startDate,
-                                                                  @RequestParam String endDate, @RequestParam String priority, @RequestParam Boolean done,
-                                                                  @RequestParam Boolean deleted,
-                                                                  @RequestParam String sorting, @RequestParam int page, @RequestParam int size) throws ParseException {
+    public ResponseEntity<List<TaskResponseDTO>> getTasksByUserId(@PathVariable UUID userId, @RequestParam(required = false) String content, @RequestParam(required = false) String startDate,
+                                                                  @RequestParam(required = false) String endDate, @RequestParam(required = false) String priority, @RequestParam(required = false) Boolean done,
+                                                                  @RequestParam(required = false) Boolean deleted,
+                                                                  @RequestParam(required = false) String sorting, @RequestParam(required = false) int page, @RequestParam(required = false) int size) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
 
