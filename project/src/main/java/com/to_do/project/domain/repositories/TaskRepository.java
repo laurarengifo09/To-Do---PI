@@ -15,6 +15,6 @@ import java.util.UUID;
 @Repository
 public interface TaskRepository extends CrudRepository<Task, UUID>, PagingAndSortingRepository<Task, UUID> {
     @Query(value = "SELECT * FROM tasks WHERE user_id = :userId AND (:content IS NULL OR title ILIKE %:content% OR description ILIKE %:content%) AND (:priority IS NULL OR priority = :priority) " +
-            "AND due_date >= COALESCE(:startDate, due_date) AND due_date <= COALESCE(:endDate, due_date) AND (:done IS NULL OR done = :done)", nativeQuery = true)
-    Optional<List<Task>> findByUserFiltered(UUID userId, String content, String priority, Date startDate, Date endDate, boolean done, Pageable pageable);
+            "AND due_date >= COALESCE(:startDate, due_date) AND due_date <= COALESCE(:endDate, due_date) AND (:done IS NULL OR done = :done) AND (:isDeleted IS NULL OR is_deleted = :isDeleted)", nativeQuery = true)
+    Optional<List<Task>> findByUserFiltered(UUID userId, String content, String priority, Date startDate, Date endDate, boolean done, boolean isDeleted, Pageable pageable);
 }
