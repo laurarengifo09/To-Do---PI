@@ -5,7 +5,7 @@ import com.to_do.project.domain.entities.task.Task;
 import java.util.Date;
 import java.util.List;
 
-public record TaskResponseDTO(String id, String title, String description, Date dueDate, String priority, boolean done, Date createdAt, Date updatedAt) {
+public record TaskResponseDTO(String id, String title, String description, Date dueDate, String priority, boolean done, Date createdAt, Date updatedAt, boolean isDeleted) {
     public static TaskResponseDTO from(Task task) {
         return new TaskResponseDTO(
                 task.getId().toString(),
@@ -15,7 +15,8 @@ public record TaskResponseDTO(String id, String title, String description, Date 
                 task.getPriority(),
                 task.isDone(),
                 task.getCreatedAt(),
-                task.getUpdatedAt()
+                task.getUpdatedAt(),
+                task.isDeleted()
         );
     }
 
@@ -28,7 +29,8 @@ public record TaskResponseDTO(String id, String title, String description, Date 
                 task.getPriority(),
                 task.isDone(),
                 task.getCreatedAt(),
-                task.getUpdatedAt()
+                task.getUpdatedAt(),
+                task.isDeleted()
         )).toList();
     }
 }

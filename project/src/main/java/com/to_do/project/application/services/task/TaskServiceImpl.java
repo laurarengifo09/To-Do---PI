@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
         var pagination = PageRequest.of(paginationDTO.page(), paginationDTO.size(), Sort.by(Sort.Direction.DESC, sorting));
 
         var tasks = _taskRepository.findByUserFiltered(userId, filtersDTO.content(), filtersDTO.priority(),
-                filtersDTO.startDate(), filtersDTO.endDate(), filtersDTO.done(), pagination).orElseThrow();
+                filtersDTO.startDate(), filtersDTO.endDate(), filtersDTO.done(), filtersDTO.deleted(), pagination).orElseThrow();
 
         return TaskResponseDTO.fromList(tasks);
     }
