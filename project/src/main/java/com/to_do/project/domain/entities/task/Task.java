@@ -1,5 +1,6 @@
 package com.to_do.project.domain.entities.task;
 
+import com.to_do.project.domain.base.BaseEntity;
 import com.to_do.project.domain.entities.auth.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,10 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Task extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
@@ -26,10 +24,7 @@ public class Task {
     private String description;
 
     @Column(nullable = false)
-    private Date startDate;
-
-    @Column(nullable = false)
-    private Date endDate;
+    private Date dueDate;
 
     @Column(nullable = false)
     private String priority;
@@ -41,12 +36,12 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Task(String title, String description, Date startDate, Date endDate, String priority, boolean done) {
+    public Task(String title, String description, Date dueDate, String priority, User user) {
         this.title = title;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.dueDate = dueDate;
         this.priority = priority;
-        this.done = done;
+        this.done = false;
+        this.user = user;
     }
 }
