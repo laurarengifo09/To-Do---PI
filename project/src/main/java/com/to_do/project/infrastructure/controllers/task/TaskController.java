@@ -46,7 +46,7 @@ public class TaskController {
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
 
 
-        FiltersDTO filters = new FiltersDTO(content, formatter.parse(startDate), formatter.parse(endDate), priority, done, deleted);
+        FiltersDTO filters = new FiltersDTO(content, startDate != null ? formatter.parse(startDate) : null, endDate != null ? formatter.parse(endDate) : null, priority, done, deleted);
         PaginationDTO pagination = new PaginationDTO(page, size);
 
         return ResponseEntity.ok(_taskService.getTasksByUserId(userId, filters, sorting, pagination));
